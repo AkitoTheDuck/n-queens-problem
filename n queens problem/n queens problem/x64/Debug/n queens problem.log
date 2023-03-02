@@ -1,0 +1,6 @@
+﻿  n queens problem.cpp
+C:\Users\akito\source\repos\n queens problem\n queens problem\n queens problem.cpp(11,40): warning C4244: 'initializing': conversion from 'double' to 'unsigned __int64', possible loss of data
+C:\Users\akito\source\repos\n queens problem\n queens problem\n queens problem.cpp(11,35): warning C4244: 'initializing': conversion from 'double' to 'const unsigned __int64', possible loss of data
+C:\Users\akito\source\repos\n queens problem\n queens problem\n queens problem.cpp(12,40): warning C4244: 'initializing': conversion from 'double' to 'unsigned __int64', possible loss of data
+C:\Users\akito\source\repos\n queens problem\n queens problem\n queens problem.cpp(12,35): warning C4244: 'initializing': conversion from 'double' to 'const unsigned __int64', possible loss of data
+  n queens problem.vcxproj -> C:\Users\akito\source\repos\n queens problem\x64\Debug\n queens problem.exe
