@@ -5,85 +5,86 @@ using namespace std;
 
 int main()
 {
-	constexpr auto damen = 5; //anzahl der Damen, die platziert werden sollen
-	constexpr int stellenAnzahl = damen * damen; //wie viele Felder es insgesamt gibt
+	constexpr auto queens = 5; //change number for more/less solutions
+	constexpr int numberCount = queens * queens;
 
-	const unsigned long long maxWert = pow(2, stellenAnzahl); //anzahl an möglichen Lösungen
-	const unsigned long long minWert = pow(2, stellenAnzahl - damen);
+	const unsigned long long maxValue = pow(2, numberCount); //anzahl an möglichen Lösungen
+	const unsigned long long minValue = pow(2, numberCount - queens);
 
 	vector<bool*>solutions;
 
-	for (unsigned long long n = minWert; n < maxWert; n++)
+	for (unsigned long long n = minValue; n < maxValue; n++)
 	{
-		bool schachbrett[stellenAnzahl] = {};
-		int anzahlEinser = 0;
-		unsigned long long Testzahl = n;
+		bool chessboard[numberCount] = {};
+		int numberOnes = 0;
+		unsigned long long testNumber = n;
 
-		for (int j = stellenAnzahl - 1; j > -1; j--) //Dezimalzahl wird in ein Binärwert umgewandelt
+		for (int j = numberCount - 1; j > -1; j--) //converting into binary
 		{
-			// raufzählen, wenn 1 berechnet wird
-			if (Testzahl % 2 == 1)
+			if (testNumber % 2 == 1)
 			{
-				anzahlEinser++;
-				schachbrett[j] = 1;
-				if (anzahlEinser > damen)
+				numberOnes++;
+				chessboard[j] = 1;
+				if (numberOnes > queens)
 				{
 					break;
 				}
 			}
 			else
 			{
-				schachbrett[j] = 0;
+				chessboard[j] = 0;
 			}
-			Testzahl = Testzahl / 2;
+			testNumber = testNumber / 2;
 		}
-		if (anzahlEinser != damen)
+
+		if (numberOnes != queens)
 		{
 			continue;
 		}
-		short positionen[damen] = {};
+		short positions[queens] = {};
 
 		string buffer;
-		short zeile = 0;
+		short row = 0;
 		bool isValid = true;
-		for (short i = 0; i < stellenAnzahl; i++)
+
+		for (short i = 0; i < numberCount; i++)
 		{
-			buffer += schachbrett[i];
-			if ((i + 1) % (damen) != 0)
+			buffer += chessboard[i];
+			if ((i + 1) % (queens) != 0)
 				continue;
 
 			// translate to array
-			unsigned short anzahlDamen = 0;
-			for (short j = 0; j < damen; j++)
+			unsigned short numberQueens = 0;
+			for (short j = 0; j < queens; j++)
 			{
 				if (buffer[j] == 1)
 				{
-					positionen[zeile] = j;
-					anzahlDamen++;
+					positions[row] = j;
+					numberQueens++;
 				}
 			}
-			zeile++;
+			row++;
 
-			if (anzahlDamen != 1) {
+			if (numberQueens != 1) {
 				isValid = false;
 				break;
 			}
 			buffer = "";
 		}
 
-		for (short i = 0; i < damen; i++)
+		for (short i = 0; i < queens; i++)
 		{
 			if (!isValid)
 				break;
 
-			for (short j = 0; j < damen; j++)
+			for (short j = 0; j < queens; j++)
 			{
 				if (
 					i != j &&
 					(
-						abs(i - j) == abs(positionen[i] - positionen[j])
+						abs(i - j) == abs(positions[i] - positions[j])
 						||
-						positionen[i] == positionen[j]
+						positions[i] == positions[j]
 						)
 					)
 				{
@@ -92,23 +93,23 @@ int main()
 				}
 			}
 		}
-		if (isValid)
+		if (isValid) //valid solutions pushed into vector of valid solutions
 		{
-			solutions.push_back(schachbrett);
-			for (int i = 1; i < stellenAnzahl + 1; i++)
+			solutions.push_back(chessboard);
+			for (int i = 1; i < numberCount + 1; i++)
 			{
-				if (i % damen == 0)
+				if (i % queens == 0)
 				{
-					cout << schachbrett[i - 1] << "\n";
+					cout << chessboard[i - 1] << "\n";
 				}
 				else
 				{
-					cout << schachbrett[i - 1];
+					cout << chessboard[i - 1];
 				}
 			}
 			cout << "Solution is valid!\n\n";
 		}
-		*positionen = {};
+		*positions = {};
 	}
 	cout << "\n" << "Solutions found: " << solutions.size() << "\n";
 	return 0;
